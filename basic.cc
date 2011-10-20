@@ -20,8 +20,10 @@ int RangerUpdateCb( ModelRanger* mod, void* dummy)
   
   // ( inspect the ranger data and decide what to do )
   
-  // output a speed command (X, Y, Z)
-  position->SetSpeed( 0.4, 0, 0.1 );  
+  // output something to prove it is working  
+  printf( "Hello simulated world\n" ); // console
+  mod->Say( "Hello" ); // GUI window
+  position->SetSpeed( 0.4, 0, 0.1 );  // output a speed command (X, Y, Z)
   return 0;
 }
 

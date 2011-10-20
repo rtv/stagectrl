@@ -1,18 +1,71 @@
+
+stagectrl README
+------------------------
+
 A minimal controller for Stage, to give a template for building your own controllers.
 
-** Instructions **
+ - rtv (vaughan@sfu.ca)  2001.10.20
 
-Assuming Stage is working in your environment, you should be able to
+ Instructions
+----------------
+
+Assuming Stage is working in your environment (see notes below), you should be able to
 build and run this template controller from the directory containing
-this README file thus:
+this README file as follows:
 
 $ cmake .
+
+If you see errors, read the notes below on setting up your environment.
+
 $ make
 
-(check to see that the module "basic.so" has been built successfully)
+Check to see that the module "basic.so" has been built successfully
+into the current directory. If not, carefully read the build output to
+see what went wrong.
+
+Tell Stage to look in the current directory for controller modules
+
+$ export STAGEPATH=.
+
+Now run Stage with the minimal example world.
 
 $ stage basic.world
 
+You should see a world containing one default model, which is running
+the basic controller which prints a message on the console and in the
+Stage window.
+
 To write your own controller, edit the C++ source file basic.cc. If
 you add more source files, you must add them to CMakeLists.txt.
+
+Please let me know of any errors or ommisions. Enjoy writing Stage controllers.
+
+
+Notes on setting up your environment
+--------------------------------------------------
+
+If you installed Stage to the default location for your platform, you
+should not need to do any special environment setup.
+
+if you installed Stage to a non-default location, i.e. you specified
+-DCMAKE_INSTALL_PREFIX=<stage install prefix> when running CMake to
+configure Stage, you need to set PKG_CONFIG_PATH to include <stage
+install prefix>/lib/pkgconfig since the build script uses pkg-config
+to find Stage's compiler and linker settings. You probably also need
+to set LD_LIBRARY_PATH on Linux,or DYLD_LIBRARY_PATH on OS X to <stage
+install prefix>/lib. If you want toFor convenience, you may also want to add Stage's
+the directory containing Stage's binary to your PATH. Here are the
+relevant lines from my $HOME/.profile file:
+
+# my install prefix
+STAGE=$HOME/stg
+
+export PATH="$STAGE/bin:$PATH"
+export PKG_CONFIG_PATH=$STAGE/lib/pkgconfig
+
+#Linux, etc.
+export LD_LIBRARY_PATH=$STAGE/lib:.
+
+#OS X
+#export DYLD_LIBRARY_PATH=$STAGE/lib:.
 
