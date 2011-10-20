@@ -1,0 +1,18 @@
+A minimal controller for Stage, to give a template for building your own controllers.
+
+** Instructions **
+
+Assuming Stage is working in your environment, you should be able to
+build and run this template controller from the directory containing
+this README file thus:
+
+$ cmake .
+$ make
+
+(check to see that the module "basic.so" has been built successfully)
+
+$ stage basic.world
+
+To write your own controller, edit the C++ source file basic.cc. If
+you add more source files, you must add them to CMakeLists.txt.
+
