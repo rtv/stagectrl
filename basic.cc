@@ -34,6 +34,7 @@ extern "C" int Init( Model* mod )
   // the controller is attached to a position model, so Init is called
   // with a pointer to this model.
   position = (ModelPosition*)mod;
+  position->Subscribe(); // models are only updated if someone is subscribed to them
 
   // we obtain a pointer to the first unused ranger that is a child of this position model
   ModelRanger* ranger = (ModelRanger*) mod->GetUnusedModelOfType( "ranger" );
@@ -42,6 +43,7 @@ extern "C" int Init( Model* mod )
   // ranger model is updated by the simulator
   ranger->AddCallback( Model::CB_UPDATE, (model_callback_t)RangerUpdateCb, NULL );
   ranger->Subscribe(); // models are only updated if someone is subscribed to them
+
   
   return 0; //ok
 }
