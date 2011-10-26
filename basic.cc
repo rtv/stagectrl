@@ -24,6 +24,21 @@ int RangerUpdateCb( ModelRanger* mod, void* dummy)
   printf( "Hello simulated world\n" ); // console
   mod->Say( "Hello" ); // GUI window
   position->SetSpeed( 0.4, 0, 0.1 );  // output a speed command (X, Y, Z)
+
+  Model* res = position->GetWorld()->GetModel( "resource_name:0" );
+  if( res )
+    printf( "res %p %s\n", res, res->Token() );
+  else
+    puts( "res not found" );
+
+  static int count=0;
+
+  if( res && (++count % 50 == 0) )
+    {
+      res->SetParent( NULL );
+      res->SetPose( Pose(0,0,0,0) );
+    }
+
   return 0;
 }
 
@@ -44,7 +59,16 @@ extern "C" int Init( Model* mod )
   ranger->AddCallback( Model::CB_UPDATE, (model_callback_t)RangerUpdateCb, NULL );
   ranger->Subscribe(); // models are only updated if someone is subscribed to them
 
-  
+
+  Model* resource = new Model(mod->GetWorld(), NULL, "resource_name");
+
+  printf( "added model %s\n", resource->Token() );
+
+  resource->SetColor( Color("blue") );
+  mod->GetWorld()->AddModel(resource);
+ 
+  resource->SetParent(position);
+ 
   return 0; //ok
 }
  
